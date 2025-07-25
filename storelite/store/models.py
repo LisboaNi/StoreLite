@@ -27,10 +27,10 @@ class Store(models.Model):
     cnpj = models.CharField(max_length=18, unique=True, null=True)  
 
     layout = models.CharField(max_length=50, default='standard')  
-    logo = models.ImageField(upload_to=PathRename('img/store/logo/'), blank=True, null=True)
-    page = models.ImageField(upload_to=PathRename('img/store/page/'), blank=True, null=True)
+    logo = models.ImageField(upload_to=PathRename('logo/'), blank=True, null=True)
+    page = models.ImageField(upload_to=PathRename('page/'), blank=True, null=True)
     main = models.TextField(blank=True)
-    draft = models.ImageField(upload_to=PathRename('img/store/draft/'), blank=True, null=True)
+    draft = models.ImageField(upload_to=PathRename('draft/'), blank=True, null=True)
     text = models.TextField(blank=True)
     
     telephone = models.CharField(max_length=20, blank=True)

@@ -24,7 +24,7 @@ class Product(models.Model):
     store = models.ForeignKey(Store, on_delete=models.CASCADE, related_name='products') 
     name = models.CharField(max_length=100, unique=True)
     description = models.TextField()
-    photo = models.ImageField(upload_to=PathRename('img/product/photo/'))
+    photo = models.ImageField(upload_to=PathRename('product/'))
     cost = models.DecimalField(max_digits=10, decimal_places=2)
     stock = models.PositiveIntegerField()
     number = models.CharField(max_length=20, blank=True, null=True)
