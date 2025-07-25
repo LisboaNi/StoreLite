@@ -8,6 +8,9 @@ from django.dispatch import receiver
 from uuid import uuid4
 from django.utils.deconstruct import deconstructible
 
+from django.utils.text import slugify
+from django.urls import reverse
+
 @deconstructible
 class PathRename:
     def __init__(self, path):
@@ -34,8 +37,21 @@ class Store(models.Model):
     whatsapp = models.CharField(max_length=20, blank=True)
     email = models.EmailField(blank=True)
 
+    slug = models.SlugField(unique=True, blank=True)
+
     def __str__(self):
         return self.store
+    
+    def save(self, *args, **kwargs):
+        new_slug = slugify(self.store)
+        if self.slug != new_slug:
+            self.slug = new_slug
+        super().save(*args, **kwargs)
+
+    def get_store_url(self):
+        if self.slug:
+            return reverse('public:store_front', args=[self.slug])
+        return "#"
 
 @receiver(post_delete, sender=Store)
 def delete_store_images(sender, instance, **kwargs):

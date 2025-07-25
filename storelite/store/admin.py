@@ -1,10 +1,12 @@
 from django.contrib import admin
 from .models import Store
 
+from django.utils.html import format_html
+
 @admin.register(Store)
 class StoreAdmin(admin.ModelAdmin):
-    fields = ('store', 'cnpj', 'logo', 'page', 'main', 'draft', 'text', 'telephone', 'whatsapp', 'email')
-    readonly_fields = ('user', 'layout')
+    fields = ('store', 'cnpj', 'logo', 'page', 'main', 'draft', 'text', 'telephone', 'whatsapp', 'email', 'store_link')
+    readonly_fields = ('user', 'layout', 'slug', 'store_link')
 
     def get_readonly_fields(self, request, obj=None):
         if request.user.is_superuser:
@@ -40,3 +42,10 @@ class StoreAdmin(admin.ModelAdmin):
 
     def has_delete_permission(self, request, obj=None):
         return self.has_change_permission(request, obj)
+
+    @admin.display(description="Store link")
+    def store_link(self, obj):
+        if obj.store:
+            url = obj.get_store_url()
+            return format_html('<a href="{}" target="_blank">Access the store</a>', url)
+        return "-"

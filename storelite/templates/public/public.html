@@ -1,0 +1,21 @@
+{% extends "admin/base_site.html" %}
+
+{% block content %}
+  <h1>{{ store.store }}</h1>
+  <p>{{ store.main }}</p>
+
+  <img src="{{ store.logo.url }}" alt="Logo da Loja" />
+  <img src="{{ store.page.url }}" alt="Imagem de capa" />
+
+  <h2>Produtos</h2>
+  <ul>
+    {% for product in products %}
+      <li>
+        <strong>{{ product.name }}</strong><br>
+        <img src="{{ product.photo.url }}" alt="{{ product.name }}">
+        <p>{{ product.description }}</p>
+        <p>R$ {{ product.cost }}</p>
+      </li>
+    {% endfor %}
+  </ul>
+{% endblock %}

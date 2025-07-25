@@ -20,7 +20,7 @@ class PathRename:
         return os.path.join(self.path, filename)
     
 class Product(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE, null=True)  
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)  
     store = models.ForeignKey(Store, on_delete=models.CASCADE, related_name='products') 
     name = models.CharField(max_length=100, unique=True)
     description = models.TextField()
