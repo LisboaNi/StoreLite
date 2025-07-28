@@ -28,10 +28,6 @@ env/
 media/
 uploads/
 
-# Static files (gerados automaticamente)
-staticfiles/
-static/
-
 # Logs
 *.log
 

@@ -1,0 +1,44 @@
+.footer-bg {
+    background: var(--cor-detail);
+    color: var(--cor-detail-txt);
+    font-family: "Titillium Web", sans-serif;
+    font-size: 1em;
+    font-weight: 400;
+}
+
+.footer a {
+    color: var(--cor-footer);
+    transition: .3s;
+}
+
+.footer a:hover {
+    color: var(--cor-detail-txt);
+}
+
+.footer {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    justify-content: space-between;
+    align-items: start;
+    padding: 40px;
+    gap: 40px;
+}
+
+.footer ul {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.footer ul i {
+    margin-right: 10px;
+}
+
+.footer div {
+    justify-items: center;
+}
+
+.footer img {
+    max-width: 80px;
+    margin-bottom: 40px;
+}

@@ -1,0 +1,32 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    color: var(--cor-txt);
+    background: var(--cor-bg);
+}
+
+li {
+    list-style: none;
+}
+
+a {
+    display: block;
+    text-decoration: none;
+    color: var(--cor-txt);
+}
+
+img {
+    display: block;
+    width: 100%;
+    border-radius: 5px;
+}
+
+.container {
+    max-width: 1220px;
+    padding: 80px 40px;
+    box-sizing: border-box;
+    margin: 0 auto;
+}
