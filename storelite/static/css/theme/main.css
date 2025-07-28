@@ -102,3 +102,18 @@
     font-weight: 600;
     color: var(--cor-store);
 }
+
+.intro {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 40px;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.intro p {
+    font-family: "Titillium Web", sans-serif;
+    font-size: 1.5em;
+    font-weight: 300;
+    color: var(--cor-store);
+}
