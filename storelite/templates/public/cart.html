@@ -1,0 +1,54 @@
+{% extends 'base.html' %} {% block content %}
+<section class="cart container">
+  <h1>Meu Carrinho</h1>
+
+  {% if cart_items %}
+  <ul>
+    {% for item in cart_items %}
+    <li>
+      <img src="{{ item.product.photo.url }}" alt="{{ item.product.name }}" />
+      <div>
+        <h2>{{ item.product.name }}</h2>
+        <p>Quantidade: {{ item.quantity }}</p>
+        <p>Preço unitário: R$ {{ item.product.cost }}</p>
+        <p>
+          Subtotal: R$ {{
+          item.product.cost|floatformat:2|add:item.quantity|floatformat:2 }}
+        </p>
+        <form
+          action="{% url 'public:remove_from_cart' store.slug item.id %}"
+          method="post"
+          style="display: inline"
+        >
+          {% csrf_token %}
+          <button type="submit" class="btn-remover">Remover</button>
+        </form>
+      </div>
+    </li>
+    {% endfor %}
+  </ul>
+
+  <p class="total"><strong>Total:</strong> R$ {{ total|floatformat:2 }}</p>
+
+  <div style="margin-top: 20px">
+    <form onsubmit="mostrarMensagem(); return false;">
+      <button type="submit" class="btn-finalizar">Finalizar Compra</button>
+    </form>
+    <p id="mensagem" style="display: none; margin-top: 10px; color: #555">
+      Este projeto é fictício e não contém a opção de realizar compras reais,
+      pois foi desenvolvido com fins educacionais.
+    </p>
+  </div>
+
+  <script>
+    function mostrarMensagem() {
+      const msg = document.getElementById("mensagem");
+      msg.style.display = "block";
+    }
+  </script>
+
+  {% else %}
+  <p>Seu carrinho está vazio.</p>
+  {% endif %}
+</section>
+{% endblock %}

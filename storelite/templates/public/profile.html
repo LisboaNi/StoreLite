@@ -1,0 +1,18 @@
+{% extends "base.html" %} {% block content %}
+
+<form method="post">
+  {% csrf_token %}
+
+  <label>Nome de usuário:</label>
+  <input type="text" value="{{ user.username }}" disabled /><br />
+
+  <label>Email:</label>
+  <input type="email" name="email" value="{{ user.email }}" /><br />
+
+  <label>Telefone:</label>
+  {{ form.telephone }}<br />
+
+  <button type="submit">Salvar</button>
+</form>
+
+{% endblock %}

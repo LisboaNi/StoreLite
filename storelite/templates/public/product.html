@@ -1,0 +1,40 @@
+{% extends 'base.html' %} {% block content %}
+
+<article>
+  <div class="intro container">
+    <img src="{{ store.draft.url }}" alt="Imagem de destaque" />
+    <p>{{ store.text }}</p>
+  </div>
+</article>
+
+<section class="product-bg">
+  <div class="product container">
+    <h1>Produtos</h1>
+    <ul>
+      {% for product in products %}
+      <li>
+        <img src="{{ product.photo.url }}" alt="{{ product.name }}" />
+        <h2>{{ product.name }}</h2>
+        <p>{{ product.description }}</p>
+        <div>
+          <p><span>R$</span> {{ product.cost }}</p>
+          <p><span>Stock:</span> {{ product.stock }}</p>
+          <p><span>Number:</span> {{ product.number }}</p>
+          <p><span>Size:</span> {{ product.size }}</p>
+        </div>
+        {% if product.stock > 0 %} {% if user.is_authenticated %}
+        <a href="{% url 'public:add_to_cart' store.slug product.id %}">
+          <i class="bi bi-bag-plus-fill"></i>
+        </a>
+        {% else %}
+        <a href="{% url 'public:client_login' store.slug %}">
+          <i class="bi bi-bag-plus-fill"></i>
+        </a>
+        {% endif %} {% endif %}
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+</section>
+
+{% endblock %}

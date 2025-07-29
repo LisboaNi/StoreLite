@@ -1,85 +1,37 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-  <meta charset="UTF-8">
-  <title>{% block title %}{{ store.store }} | StoreLite{% endblock %}</title>
-  <link rel="icon" href="{{ store.logo.url }}" type="image/svg+xml">
+{% extends 'base.html' %} {% block content %}
 
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
-  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+<main>
+  <section class="main container">
+    <div>
+      <h1>{{ store.store }}</h1>
+      <p>{{ store.main }}</p>
+    </div>
+    <img src="{{ store.page.url }}" alt="Imagem de capa" />
+  </section>
+</main>
 
-</head>
-<body>
+<section id="home" class="product-bg">
+  <div class="product container">
+    <h1>Produtos</h1>
+    <ul>
+      {% for product in products|slice:":3" %}
+      <li>
+        <img src="{{ product.photo.url }}" alt="{{ product.name }}" />
+        <h2>{{ product.name }}</h2>
+        <p>{{ product.description }}</p>
+        <span>R$ {{ product.cost }}</span>
+      </li>
+      {% endfor %}
+    </ul>
+    <a href="{% url 'public:store_products' store.slug %}">Ver mais</a>
+  </div>
+</section>
 
-    <header class="header-bg">
-      <div class="header container">
-          <a href="{% url 'public:store_front' store.slug %}"><img src="{{ store.logo.url }}" alt="Logo da Loja" class="logo"/></a>
-        <nav class="nav">
-          <ul><li><a href="#">Produtos</a></li></ul>
-          <ul><li><a href="#"><i class="bi bi-person-circle"></i></a></li></ul>
-          <ul><li><a href="#"><i class="bi bi-bag-plus-fill"></i></a></li></ul>
-        </nav>
-      </div>
-    </header>
+<article>
+  <div class="intro container">
+    <img src="{{ store.draft.url }}" alt="Imagem de destaque" />
+    <p>{{ store.text }}</p>
+  </div>
+</article>
 
-    {% block content %}
-
-    <main>
-
-      <section class="main container">
-        <div>
-          <h1>{{ store.store }}</h1>
-          <p>{{ store.main }}</p>
-        </div>
-        <img src="{{ store.page.url }}" alt="Imagem de capa"/>
-      </section>
-
-      <section class="intro container">
-        <img src="{{ store.draft.url }}" alt="Imagem de destaque"/>
-        <div>
-          <p>{{ store.text }}</p>
-        </div>
-      </section>
-
-    </main>
-
-    <section class="product-bg">
-      <div class="product container">
-        <h1>Produtos</h1>
-        <ul>
-          {% for product in products %}
-            <li>
-              <img src="{{ product.photo.url }}" alt="{{ product.name }}">
-              <h2>{{ product.name }}</h2>
-              <p>{{ product.description }}</p>
-              <span>R$ {{ product.cost }}</span>
-            </li>
-          {% endfor %}
-        </ul>
-        <a href="#">Ver mais</a>
-      </div>
-
-    </section>
-
-    {% endblock %}
-
-    <footer class="footer-bg">
-      <div class="footer container">
-        <div>
-          <img src="{{ store.logo.url }}" alt="Logo da Loja" class="logo"/>
-          <p>© 2025 - {{ store.store }} | StoreLite. Todos os direitos reservados.</p>
-        </div>
-          <ul>
-            <li><h2>Contato</h2>
-            <li><a href="mailton:{{ store.email }}"><i class="bi bi-envelope-fill"></i>{{ store.email }}</a></li>
-            <li><a href="tel:{{ store.telephone }}"><i class="bi bi-telephone-fill"></i>{{ store.telephone }}</a></li>
-            <li><a href="tel:{{ store.whatsapp }}"><i class="bi bi-whatsapp"></i>{{ store.whatsapp }}</a></li>
-          </ul>
-        
-      </div>
-    </footer>
-
-</body>
-</html>
-
+{% endblock %}

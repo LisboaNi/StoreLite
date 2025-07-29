@@ -9,35 +9,53 @@ from django.dispatch import receiver
 from uuid import uuid4
 from django.utils.deconstruct import deconstructible
 
+
 @deconstructible
 class PathRename:
     def __init__(self, path):
         self.path = path
 
     def __call__(self, instance, filename):
-        ext = filename.split('.')[-1]
-        filename = f'{uuid4().hex}.{ext}'
+        ext = filename.split(".")[-1]
+        filename = f"{uuid4().hex}.{ext}"
         return os.path.join(self.path, filename)
-    
+
+
 class Product(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)  
-    store = models.ForeignKey(Store, on_delete=models.CASCADE, related_name='products') 
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+    store = models.ForeignKey(Store, on_delete=models.CASCADE, related_name="products")
     name = models.CharField(max_length=100, unique=True)
     description = models.TextField()
-    photo = models.ImageField(upload_to=PathRename('product/'))
+    photo = models.ImageField(upload_to=PathRename("product/"))
     cost = models.DecimalField(max_digits=10, decimal_places=2)
     stock = models.PositiveIntegerField()
     number = models.CharField(max_length=20, blank=True, null=True)
-    size = models.CharField(max_length=20, blank=True, null=True) 
+    size = models.CharField(max_length=20, blank=True, null=True)
 
     def __str__(self):
         return self.name
-    
+
+
 @receiver(post_delete, sender=Product)
 def delete_product_images(sender, instance, **kwargs):
-    image_fields = ['photo',]
-    
+    image_fields = [
+        "photo",
+    ]
+
     for field_name in image_fields:
         image = getattr(instance, field_name)
         if image and os.path.isfile(image.path):
             os.remove(image.path)
+
+
+class CartItem(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    store = models.ForeignKey(Store, on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    quantity = models.PositiveIntegerField(default=1)
+
+    class Meta:
+        unique_together = ("user", "product", "store")
+
+    def __str__(self):
+        return f"{self.product.name} ({self.quantity}) - {self.user.username}"

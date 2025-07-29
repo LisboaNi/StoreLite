@@ -15,7 +15,7 @@
     max-width: 50px;
 }
 
-.nav {
+.nav ul {
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
