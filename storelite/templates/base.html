@@ -3,94 +3,81 @@
 <html lang="pt-BR">
   <head>
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>{% block title %}{{ store.store }} | StoreLite{% endblock %}</title>
     <link rel="icon" href="{{ store.logo.url }}" type="image/svg+xml" />
 
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css"
-    />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css"/>
     <link rel="stylesheet" href="{% static 'css/style.css' %}" />
   </head>
 
   <body>
+
+    {% comment %} HEADER {% endcomment %}
     <header class="header-bg">
       <div class="header container">
-        <a href="{% url 'public:store_front' store.slug %}">
-          <img src="{{ store.logo.url }}" alt="Logo da Loja" class="logo" />
-        </a>
-        <nav class="nav">
-          <ul>
-            <li>
-              <a href="{% url 'public:store_products' store.slug %}"
-                >Produtos</a
-              >
-            </li>
 
+        {% comment %} LOGO {% endcomment %}
+        <a href="{% url 'public:store_front' store.slug %}"><img src="{{ store.logo.url }}" alt="Logo da Loja" class="logo" /></a>
+        
+        <button id="btn-menu" class="menu-icon" aria-label="Abrir menu">
+          <i class="bi bi-list"></i> 
+        </button>
+
+        {% comment %} MENU {% endcomment %}
+        <nav class="nav font-1" id="menu">
+          <ul>
+    
+            <li><a href="{% url 'public:store_products' store.slug %}">Produtos</a></li>
+
+            {% comment %} USUÁRIO LOGADO {% endcomment %}
             {% if user.is_authenticated %}
+            <li><a href="{% url 'public:user_cart' store.slug %}"><i class="bi bi-bag-plus-fill"></i></a></li>
+            <li><a href="{% url 'public:user_profile' store.slug %}"><i class="bi bi-person-circle"></i></a></li>
+
             <li>
-              <a href="{% url 'public:user_profile' store.slug %}">
-                <i class="bi bi-person-circle"></i>
-              </a>
-            </li>
-            <li>
-              <a href="{% url 'public:user_cart' store.slug %}">
-                <i class="bi bi-bag-plus-fill"></i>
-              </a>
-            </li>
-            <li>
-              <form
-                action="{% url 'public:user_logout' store_name=store.slug %}"
-                method="post"
-              >
+              <form action="{% url 'public:user_logout' store_name=store.slug %}" method="post">
+                {% comment %} SEGURANÇA {% endcomment %}
                 {% csrf_token %}
-                <button type="submit">
-                  <i class="bi bi-box-arrow-right"></i>
-                </button>
+                <button type="submit"><i class="bi bi-box-arrow-right font-1"></i></button>
               </form>
             </li>
             {% else %}
+            {% comment %} USUÁRIO NÃO LOGADO {% endcomment %}
             <li>
-              <a href="{% url 'public:client_login' store.slug %}">
-                <i class="bi bi-person"></i>
-              </a>
+              <a href="{% url 'public:client_login' store.slug %}"><i class="bi bi-person-circle"></i></a>
             </li>
             {% endif %}
           </ul>
         </nav>
+
       </div>
     </header>
 
-    {% block content %} {% endblock %}
+    <main>{% block content %} {% endblock %}</main>
 
-    <footer class="footer-bg">
+    {% comment %} FOOTER {% endcomment %}
+    <footer class="footer-bg font-2">
       <div class="footer container">
-        <div>
-          <img src="{{ store.logo.url }}" alt="Logo da Loja" class="logo" />
-          <p>
-            © 2025 - {{ store.store }} | StoreLite. Todos os direitos
-            reservados.
-          </p>
-        </div>
+
+        {% comment %} INFORMACOES {% endcomment %}
         <ul>
           <li><h2>Contato</h2></li>
-          <li>
-            <a href="mailto:{{ store.email }}">
-              <i class="bi bi-envelope-fill"></i>{{ store.email }}
-            </a>
-          </li>
-          <li>
-            <a href="tel:{{ store.telephone }}">
-              <i class="bi bi-telephone-fill"></i>{{ store.telephone }}
-            </a>
-          </li>
-          <li>
-            <a href="https://wa.me/{{ store.whatsapp }}">
-              <i class="bi bi-whatsapp"></i>{{ store.whatsapp }}
-            </a>
-          </li>
+          <li><a href="mailto:{{ store.email }}"><i class="bi bi-envelope-fill"></i>{{ store.email }}</a></li>
+          <li><a href="tel:{{ store.telephone }}"><i class="bi bi-telephone-fill"></i>{{ store.telephone }}</a></li>
+          <li><a href="https://wa.me/{{ store.whatsapp }}"><i class="bi bi-whatsapp"></i>{{ store.whatsapp }}</a></li>
         </ul>
+
+        <img src="{{ store.logo.url }}" alt="Logo da Loja" class="logo" />
+
+        {% comment %} COPY {% endcomment %}
+        <p>© 2025 - {{ store.store }} | StoreLite. Todos os direitos reservados.</p>
+
       </div>
     </footer>
+
+    <script src="{% static 'js/script.js' %}"></script>
+    
   </body>
 </html>

@@ -1,37 +1,41 @@
 {% extends 'base.html' %} {% block content %}
 
-<main>
-  <section class="main container">
-    <div>
-      <h1>{{ store.store }}</h1>
-      <p>{{ store.main }}</p>
-    </div>
-    <img src="{{ store.page.url }}" alt="Imagem de capa" />
-  </section>
-</main>
 
-<section id="home" class="product-bg">
-  <div class="product container">
-    <h1>Produtos</h1>
+<section>
+  <div class="main container">
+
+    <div><h1 class="font-4">{{ store.store }}</h1><p class="font-3">{{ store.main }}</p></div>
+    <img src="{{ store.page.url }}" alt="Imagem de capa" />
+
+  </div>
+</section> 
+
+<section class="product-bg" id="home">
+
+  <div class="product-home container">
+    <h1 class="font-4">Produtos</h1>
     <ul>
       {% for product in products|slice:":3" %}
       <li>
         <img src="{{ product.photo.url }}" alt="{{ product.name }}" />
-        <h2>{{ product.name }}</h2>
-        <p>{{ product.description }}</p>
-        <span>R$ {{ product.cost }}</span>
+        <h2 class="font-5">{{ product.name }}</h2>
+        <p class="font-2">{{ product.description }}</p>
+        <span class="font-5">R$ {{ product.cost }}</span>
       </li>
       {% endfor %}
     </ul>
     <a href="{% url 'public:store_products' store.slug %}">Ver mais</a>
   </div>
+
 </section>
 
 <article>
+
   <div class="intro container">
     <img src="{{ store.draft.url }}" alt="Imagem de destaque" />
-    <p>{{ store.text }}</p>
+    <p class="font-3">{{ store.text }}</p>
   </div>
+
 </article>
 
 {% endblock %}

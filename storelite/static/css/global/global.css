@@ -3,9 +3,23 @@
     padding: 0;
 }
 
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1;
+}
+
 body {
     color: var(--cor-txt);
     background: var(--cor-bg);
+    min-height: 100vh;
 }
 
 li {
@@ -15,7 +29,13 @@ li {
 a {
     display: block;
     text-decoration: none;
-    color: var(--cor-txt);
+    color: var(--cor-txt); 
+}
+
+button {
+    display: block;
+    border: none;
+    cursor: pointer;
 }
 
 img {
@@ -29,4 +49,10 @@ img {
     padding: 80px 40px;
     box-sizing: border-box;
     margin: 0 auto;
+}
+
+@media (max-width: 430px) {
+    .container {
+        padding: 40px 20px;
+    }
 }

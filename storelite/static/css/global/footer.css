@@ -1,9 +1,6 @@
 .footer-bg {
     background: var(--cor-detail);
     color: var(--cor-detail-txt);
-    font-family: "Titillium Web", sans-serif;
-    font-size: 1em;
-    font-weight: 400;
 }
 
 .footer a {
@@ -17,11 +14,11 @@
 
 .footer {
     display: grid;
-    grid-template-columns: 2fr 1fr;
+    grid-template-columns: 1fr 1fr;
     justify-content: space-between;
     align-items: start;
     padding: 40px;
-    gap: 40px;
+    gap: 20px;
 }
 
 .footer ul {
@@ -34,11 +31,32 @@
     margin-right: 10px;
 }
 
-.footer div {
-    justify-items: center;
+.footer p {
+    text-align: center;
+    grid-column: 1/-1;
+    margin-top: 20px;
 }
 
 .footer img {
-    max-width: 80px;
-    margin-bottom: 40px;
+    max-width: 120px;
+    justify-self: center;
+    align-self: center;
+}
+
+@media (max-width: 430px) {
+    .footer {
+        grid-template-columns: 1fr;
+        padding: 40px 20px;
+    }
+
+    .footer img {
+        max-width: 80px;
+        margin-top: 20px;
+        justify-self: start;
+    }
+
+    .footer p {
+        margin-top: 0px;
+        text-align: left;
+    }
 }

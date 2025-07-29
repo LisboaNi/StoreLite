@@ -5,20 +5,11 @@
     gap: 40px;
     justify-content: space-between;
     align-items: center;
-}
-
-.main p {
-    font-family: "Titillium Web", sans-serif;
-    font-size: 1.5em;
-    font-weight: 300;
     color: var(--cor-store);
 }
 
 .main h1,
 .product h1 {
-    font-family: "Poppins", sans-serif;
-    font-size: 3em;
-    font-weight: 500;
     color: var(--cor-store);
     margin-bottom: 20px;
 }
@@ -31,11 +22,15 @@
     gap: 40px;
     justify-content: space-between;
     align-items: center;
+    color: var(--cor-store);
 }
 
-.intro p {
-    font-family: "Titillium Web", sans-serif;
-    font-size: 1.5em;
-    font-weight: 300;
-    color: var(--cor-store);
+@media (max-width: 430px) {
+    .main, .intro {
+        grid-template-columns: 1fr;
+    }
+
+    .main img, .intro img {
+        opacity: 0.9;
+    }
 }
