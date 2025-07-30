@@ -1,6 +1,7 @@
 # store/views.py
 from django.views import View
-from django.views.generic import TemplateView, DetailView
+from django.views.generic import TemplateView, ListView
+from django.views.generic.detail import SingleObjectMixin
 
 from store.models import Store, UserProfile
 from product.models import Product, CartItem
@@ -16,8 +17,9 @@ from django.shortcuts import get_object_or_404, redirect
 from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponseRedirect
+from django.db.models import Q
 
-
+# PUBLIC VIEWS
 class StoreFrontView(TemplateView):
     template_name = "public/public.html"
 
@@ -35,21 +37,51 @@ class StoreFrontView(TemplateView):
         context["products"] = products
         return context
 
-
-class ProductListView(DetailView):
-    model = Store
+# PRODUTOS
+class ProductListView(ListView):
+    model = Product
     template_name = "public/product.html"
-    context_object_name = "store"
-    slug_field = "slug"
-    slug_url_kwarg = "store_name"
+    context_object_name = "products"
+    paginate_by = 20 
+
+    def get_store(self):
+        return get_object_or_404(Store, slug=self.kwargs.get('store_name'))
+
+    def get_queryset(self):
+        store = self.get_store()
+        qs = Product.objects.filter(store=store)
+
+        size = self.request.GET.get('size')
+        number = self.request.GET.get('number')
+        min_price = self.request.GET.get('min_price')
+        max_price = self.request.GET.get('max_price')
+        search = self.request.GET.get('search')
+
+        if size:
+            qs = qs.filter(size__iexact=size)
+        if number:
+            qs = qs.filter(number__iexact=number)
+        if min_price:
+            qs = qs.filter(cost__gte=min_price)
+        if max_price:
+            qs = qs.filter(cost__lte=max_price)
+        if search:
+            qs = qs.filter(Q(name__icontains=search) | Q(description__icontains=search))
+
+        return qs
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        store = self.get_object()
-        context["products"] = store.products.all()
+        store = self.get_store()
+        sizes = Product.objects.filter(store=store).exclude(size__isnull=True).exclude(size__exact='').values_list('size', flat=True).distinct()
+        numbers = Product.objects.filter(store=store).exclude(size__isnull=True).exclude(number__exact='').values_list('number', flat=True).distinct()
+
+        context['store'] = store
+        context['sizes'] = sizes
+        context['numbers'] = numbers
         return context
 
-
+# USUÁRIO - CLIENTE
 class UserView(CreateView):
     model = User
     form_class = FormUser
@@ -138,7 +170,7 @@ class StoreLogoutView(LogoutView):
         store_slug = self.store_name_from_url
         return reverse("public:store_front", kwargs={"store_name": store_slug})
 
-
+# CARRINHO
 class AddToCartView(LoginRequiredMixin, View):
     def get(self, request, store_name, product_id):
         store = get_object_or_404(Store, slug=store_name)

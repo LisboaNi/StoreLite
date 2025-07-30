@@ -31,6 +31,10 @@
     .font-4 {
         font-size: 2em;
     }
+
+    #product .font-5{
+        font-size: 1rem;
+    }
 }
 
 @media (max-width: 430px) {
