@@ -1,11 +1,48 @@
-{% comment %} {% extends "base.html" %} {% endcomment %} {% block content %}
+{% extends "base_home.html" %} 
+{% block content %}
 
-<div class="form-container">
-  <h2>Cadastro de Usuário</h2>
-  <form method="POST">
-    {% csrf_token %} {{ form.as_p }}
-    <button type="submit">Cadastrar</button>
-  </form>
+<div class="register container">
+  <div>
+    <div class="welcome">
+      <h2>Seja bem-vindo!</h2>
+      <p>Já possui usuário?
+        <a href="{% url 'login'%}">
+          Login <i class="bi bi-arrow-up-right-square"></i>
+        </a>
+      </p>
+    </div>
+
+    <form method="post" novalidate>
+      <h1 class="font-4">Cadastro</h1>
+      
+      <div class="register-item">
+        
+        {% csrf_token %}
+        {% if form.non_field_errors %}
+          <div class="form-errors">
+            {% for error in form.non_field_errors %}
+              <p class="error">{{ error }}</p>
+            {% endfor %}
+          </div>
+        {% endif %}
+
+        {% for field in form %}
+          <div class="form-group">
+            {{ field.label_tag }}
+            {{ field }}
+            {% if field.errors %}
+              {% for error in field.errors %}
+                <p class="error">{{ error }}</p>
+              {% endfor %}
+            {% endif %}
+          </div>
+        {% endfor %}
+      </div>
+
+
+      <button type="submit">Cadastrar</button>
+    </form>
+  </div>
 </div>
 
 {% endblock %}

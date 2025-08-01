@@ -43,26 +43,35 @@ class Store(models.Model):
         ("#665c1e", "Mostarda Escura"),
     ]
 
-    user = models.OneToOneField(User, on_delete=models.CASCADE, unique=True, null=True)
-    store = models.CharField(max_length=100, unique=True)
-    cnpj = models.CharField(max_length=18, unique=True, null=True)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, unique=True, null=True, verbose_name="Usuário")
+    store = models.CharField(max_length=100, unique=True, verbose_name="Nome da Loja")
+    cnpj = models.CharField(max_length=18, unique=True, null=True, verbose_name="CNPJ")
 
-    layout = models.CharField(max_length=50, default="standard")
-    logo = models.ImageField(upload_to=PathRename("logo/"), blank=True, null=True)
-    page = models.ImageField(upload_to=PathRename("page/"), blank=True, null=True)
-    main = models.TextField(blank=True)
-    draft = models.ImageField(upload_to=PathRename("draft/"), blank=True, null=True)
-    text = models.TextField(blank=True)
+    layout = models.CharField(max_length=50, default="standard", verbose_name="Layout")
+    logo = models.ImageField(upload_to=PathRename("logo/"), blank=True, null=True, verbose_name="Logo")
+    page = models.ImageField(upload_to=PathRename("page/"), blank=True, null=True, verbose_name="Imagem da Principal")
+    main = models.TextField(blank=True, verbose_name="Texto Principal")
+    draft = models.ImageField(upload_to=PathRename("draft/"), blank=True, null=True, verbose_name="Imagem de Destaque")
+    text = models.TextField(blank=True, verbose_name="Descrição Adicional")
 
-    telephone = models.CharField(max_length=20, blank=True)
-    whatsapp = models.CharField(max_length=20, blank=True)
-    email = models.EmailField(blank=True)
+    telephone = models.CharField(max_length=20, blank=True, verbose_name="Telefone")
+    whatsapp = models.CharField(max_length=20, blank=True, verbose_name="WhatsApp")
+    email = models.EmailField(blank=True, verbose_name="Email")
 
     slug = models.SlugField(unique=True, blank=True)
-    primary_color = ColorField(max_length=7, choices=COLOR_CHOICES, default="#0B2545")
+    primary_color = ColorField(
+        max_length=7,
+        choices=COLOR_CHOICES,
+        default="#0B2545",
+        verbose_name="Cor Primária"
+    )
 
     def __str__(self):
         return self.store
+    
+    class Meta:
+        verbose_name = "Loja"
+        verbose_name_plural = "Loja"
 
     def save(self, *args, **kwargs):
         new_slug = slugify(self.store)
@@ -91,10 +100,14 @@ def delete_store_images(sender, instance, **kwargs):
 
 
 class UserProfile(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
-    store = models.ForeignKey(Store, on_delete=models.CASCADE, null=True)
-    telephone = models.CharField(max_length=20, blank=True, null=True)
-    email = models.EmailField(blank=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, verbose_name="Usuário")
+    store = models.ForeignKey(Store, on_delete=models.CASCADE, null=True, verbose_name="Loja")
+    telephone = models.CharField(max_length=20, blank=True, null=True, verbose_name="Telefone")
+    email = models.EmailField(blank=True, verbose_name="Email")
+
+    class Meta:
+        verbose_name = "Cliente"
+        verbose_name_plural = "Clientes"
 
     def __str__(self):
         return self.user.username

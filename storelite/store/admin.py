@@ -57,11 +57,11 @@ class StoreAdmin(admin.ModelAdmin):
     def has_delete_permission(self, request, obj=None):
         return self.has_change_permission(request, obj)
 
-    @admin.display(description="Store link")
+    @admin.display(description="Link")
     def store_link(self, obj):
         if obj.store:
             url = obj.get_store_url()
-            return format_html('<a href="{}" target="_blank">Access the store</a>', url)
+            return format_html('<a href="{}" target="_blank">Acesse sua loja</a>', url)
         return "-"
 
 

@@ -1,0 +1,41 @@
+{% extends "base_home.html" %} {% block content %}
+{% load static %}
+
+  <section class="draft container">
+    <img src="{% static '/img/storelite.png' %}" alt="Logo StoreLite">
+    <div>
+        <h1 class="font-4">Crie sua loja virtual em minutos.</h1>
+        <p class="font-3">StoreLite é a solução rápida e gratuita para pequenos lojistas venderem online. Você só precisa se cadastrar e começar.</p>
+        <a class="home" href="{% url 'store:register' %}">Comece agora</a>
+    </div>
+  </section>
+
+  <section class="public-bg">
+
+  <div class="public container">
+    <h1 class="font-4">Lojas (Demo)</h1>
+    <ul>
+      <li>
+        <img src="" />
+        <h2 class="font-5"></h2>
+        <p class="font-2"></p>
+        <a href="#">Ver mais</a>
+      </li>
+        <li>
+            <img src="" />
+            <h2 class="font-5"></h2>
+            <p class="font-2"></p>
+            <a href="#">Ver mais</a>
+        </li>
+        <li>
+            <img src="" />
+            <h2 class="font-5"></h2>
+            <p class="font-2"></p>
+            <a href="#">Ver mais</a>
+        </li>
+    </ul>
+  </div>
+
+</section>
+
+{% endblock %}

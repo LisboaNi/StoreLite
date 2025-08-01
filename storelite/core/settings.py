@@ -13,6 +13,7 @@ INSTALLED_APPS = [
     "store",
     "product",
     "public",
+    "jazzmin", 
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -21,6 +22,22 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     'colorfield',
 ]
+
+JAZZMIN_SETTINGS = {
+    "site_title": "StoreLite Admin",
+    "site_header": "StoreLite",
+    "site_brand": "StoreLite",
+    "welcome_sign": "Bem-vindo ao painel administrativo StoreLite",
+    "copyright": "© 2025 StoreLite. Todos os direitos reservados.",
+    "site_logo": "img/logo.svg",
+    "topmenu_links": [
+        {"name": "Site", "url": "/", "new_window": True},
+    ],
+    "show_sidebar": True,
+    "navigation_expanded": True,
+    "hide_apps": [],
+    "order_with_respect_to": ["auth", "store"],
+}
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
