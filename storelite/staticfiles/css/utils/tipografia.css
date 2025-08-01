@@ -1,0 +1,53 @@
+.font-1 {
+    font: 600 1.125em/1.4 "Titillium Web", sans-serif;
+    text-transform: uppercase;
+}
+
+.font-2 {
+    font: 400 1em/1.4 "Titillium Web", sans-serif;
+}
+
+.font-3 {
+    font: 300 1.5em/1.4 "Titillium Web", sans-serif;
+}
+
+.font-4 {
+    font: 500 3em/1.4 "Poppins", sans-serif;
+}
+
+.font-5 {
+    font: 600 1em/1.4 "Poppins", sans-serif;
+}
+
+@media (max-width: 768px) {
+    .font-1, .font-5{
+        font-size: 1.5em;
+    }
+
+    .font-2 {
+        font-size: 1.2em;
+    }
+
+    .font-4 {
+        font-size: 2em;
+    }
+
+    #product .font-5{
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 430px) {
+    .font-1, .font-2, .font-3{
+        font-size: 1em;
+    }
+
+    .font-4 {
+        font-size: 1.5em;
+    }
+
+    .font-5 {
+        font-size: 1em;
+    }
+
+}

@@ -1,0 +1,28 @@
+/* TEXTOS PRINCIPAIS -  MAIN TEXTS */
+
+.main, .draft {
+    display: grid;
+    gap: 40px;
+    justify-content: space-between;
+    align-items: center;
+    color: var(--cor-store);
+}
+
+.main h1,
+.draft h1 {
+    margin-bottom: 20px;
+}
+
+.main {
+    grid-template-columns: 2fr 1fr;
+}
+
+.draft {
+    grid-template-columns: 1fr 2fr;
+}
+
+@media (max-width: 430px) {
+    .main, .draft {
+        grid-template-columns: 1fr;
+    }
+}

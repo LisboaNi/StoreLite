@@ -1,0 +1,111 @@
+.login {
+    align-self: center;
+    justify-content: center;
+}
+
+.login > div {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.login h1 {
+    margin-top: 20px;
+    text-transform: uppercase;
+}
+
+.welcome,
+.login form {
+    padding: 20px;
+    justify-items: center;
+    align-items: center;
+}
+
+.welcome {
+    background-color: var(--cor-detail);
+    color: var(--cor-detail-txt);
+    border-radius: 5px 0px 0px 5px;
+    align-content: center;
+}
+
+.welcome h2 {
+    font: 500 3em/1.4 "Poppins", sans-serif;
+    margin: 40px 0px;
+}
+
+.welcome a {
+    text-decoration: underline;
+    color: var(--cor-detail-txt);
+    transition: 0.3s;
+}
+
+.welcome i {
+    margin-left: 10px;
+}
+
+.welcome a:hover {
+    color: #d3d3d3;
+}
+
+.welcome p {
+    font: 500 1.125em/1.4 "Titillium Web", sans-serif;
+    display: flex;
+    gap: 10px;
+    margin-bottom: 40px;
+}
+
+.login form {
+    background-color: var(--cor-nav);
+    border-radius: 0px 5px 5px 0px;
+    box-shadow: 0px 2px rgba(0, 0, 0, 0.15);
+}
+
+.login form label {
+    font: 600 1em/1.4 "Poppins", sans-serif;
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
+}
+
+.login form input {
+    margin-bottom: 40px;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1em;
+}
+
+.login button {
+    padding: 10px 80px;
+    background: var(--cor-detail);
+    color: var(--cor-detail-txt);
+    border-radius: 5px;
+    transition: 0.3s ease;
+    font-family: "Poppins", sans-serif;
+    font-size: 1em;
+    font-weight: 500;
+    text-transform: uppercase;
+    margin-bottom: 40px;
+}
+
+.login button:hover {
+    background: var(--cor-detail-hover);
+}
+
+@media (max-width: 768px) {
+    .login > div {
+        grid-template-columns: 1fr;
+    }
+    .welcome {
+        border-radius: 5px 5px 0px 0px;
+    }
+
+    .login form {
+        border-radius: 0px 0px 5px 5px;
+    }
+}
+
+@media (max-width: 430px) {
+    .welcome h2 {
+        font-size: 2em;
+    }
+}

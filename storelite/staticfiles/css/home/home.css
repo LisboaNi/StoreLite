@@ -1,0 +1,23 @@
+:root {
+    --cor-detail: #0B2545;
+    --cor-detail-hover: #1c3f6a;
+    --cor-detail-txt: #f7f7f7;
+}
+
+.home {
+    justify-self: start;
+    padding: 10px 60px;
+    background: var(--cor-detail);
+    color: var(--cor-detail-txt);
+    border-radius: 5px;
+    transition: 0.3s ease;
+    font-family: "Poppins", sans-serif;
+    font-size: 1em;
+    font-weight: 500;
+    text-transform: uppercase;
+    margin-top: 40px;
+}
+
+.home:hover {
+    background: var(--cor-detail-hover);
+}
