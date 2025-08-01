@@ -25,9 +25,12 @@ INSTALLED_APPS = [
     'colorfield',
 ]
 
+CLOUDINARY_URL = os.environ.get('CLOUDINARY_URL')
+
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+
 
 JAZZMIN_SETTINGS = {
     "site_title": "StoreLite Admin",
