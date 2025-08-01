@@ -1,0 +1,5 @@
+:root {
+  --cor-detail: {{ primary_color }};
+  --cor-detail-hover: {{ hover_color }};
+  --cor-detail-txt: {{ text_color }};
+}

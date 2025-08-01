@@ -3,7 +3,6 @@ from django.views.generic.edit import CreateView
 from .forms import FormStore
 from django.contrib.auth.models import User, Group
 
-
 class StoreView(CreateView):
     model = User
     form_class = FormStore

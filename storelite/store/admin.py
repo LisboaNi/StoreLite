@@ -17,6 +17,7 @@ class StoreAdmin(admin.ModelAdmin):
         "telephone",
         "whatsapp",
         "email",
+        "primary_color",
         "store_link",
     )
     readonly_fields = ("user", "layout", "slug", "store_link")

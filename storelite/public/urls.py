@@ -9,6 +9,7 @@ from .views import (
     AddToCartView,
     CartView,
     RemoveFromCartView,
+    theme_css,
 )
 
 app_name = "public"
@@ -33,4 +34,5 @@ urlpatterns = [
         RemoveFromCartView.as_view(),
         name="remove_from_cart",
     ),
+    path('<slug:store_slug>/theme.css', theme_css, name='theme_css'),
 ]

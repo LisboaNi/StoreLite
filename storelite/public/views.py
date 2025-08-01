@@ -14,10 +14,92 @@ from .forms import FormUser
 from django.views.generic.edit import CreateView, UpdateView
 from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404, redirect
+from django.template.loader import render_to_string
 from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from django.db.models import Q
+
+THEME_COLORS = {
+    "#0B2545": {
+        "hover": "#1c3f6a",
+        "text": "#f7f7f7",
+    },
+    "#e91e63": {
+        "hover": "#f06292",
+        "text": "#f7f7f7",
+    },
+    "#3f51b5": {
+        "hover": "#5c6bc0",
+        "text": "#f7f7f7",
+    },
+    "#fdd835": {  
+        "hover": "#ffe066",
+        "text": "#141414",
+    },
+    "#ffb74d": {  
+        "hover": "#ffcc80",
+        "text": "#141414",
+    },
+    "#ef5350": {  
+        "hover": "#e57373",
+        "text": "#f7f7f7",
+    },
+    "#ba68c8": {  
+        "hover": "#ce93d8",
+        "text": "#f7f7f7",
+    },
+    "#4db6ac": {  
+        "hover": "#80cbc4",
+        "text": "#141414",
+    },
+    "#c62828": { 
+    "hover": "#e53935",
+    "text": "#f7f7f7",
+    },
+    "#2E4D38": {
+        "hover": "#3e6a4e",
+        "text": "#ffffff",
+    },
+    "#3A0B52": {
+        "hover": "#59207a",
+        "text": "#ffffff",
+    },
+    "#2e2e2e": {
+        "hover": "#444444",
+        "text": "#f7f7f7",
+    },
+    "#7B1E1E": {
+        "hover": "#a03a3a",
+        "text": "#ffffff",
+    },
+    "#8B4513": {
+        "hover": "#a0522d",
+        "text": "#ffffff",
+    },
+    "#665c1e": {
+        "hover": "#8a7c33",
+        "text": "#ffffff",
+    },
+}
+
+def theme_css(request, store_slug):
+    try:
+        store = Store.objects.get(slug=store_slug)
+    except Store.DoesNotExist:
+        return HttpResponse("/* Loja não encontrada */", content_type="text/css")
+
+    primary = store.primary_color
+    hover = THEME_COLORS.get(primary, {}).get("hover", "#333")
+    text = THEME_COLORS.get(primary, {}).get("text", "#fff")
+
+    css = render_to_string("public/theme.css", {
+        "primary_color": primary,
+        "hover_color": hover,
+        "text_color": text,
+    })
+
+    return HttpResponse(css, content_type="text/css")
 
 # PUBLIC VIEWS
 class StoreFrontView(TemplateView):
@@ -33,8 +115,21 @@ class StoreFrontView(TemplateView):
             raise Http404("Loja não encontrada")
 
         products = Product.objects.filter(store=store)
+
+        # Pega a cor principal e busca no dicionário
+        primary = store.primary_color
+        theme = THEME_COLORS.get(primary, {
+            "hover": "#333333",
+            "text": "#ffffff",
+        })
+
+        # Injeta no contexto
         context["store"] = store
         context["products"] = products
+        context["primary_color"] = primary
+        context["hover_color"] = theme["hover"]
+        context["text_color"] = theme["text"]
+
         return context
 
 # PRODUTOS

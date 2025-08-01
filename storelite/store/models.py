@@ -11,6 +11,7 @@ from django.utils.deconstruct import deconstructible
 from django.utils.text import slugify
 from django.urls import reverse
 
+from colorfield.fields import ColorField
 
 @deconstructible
 class PathRename:
@@ -24,6 +25,24 @@ class PathRename:
 
 
 class Store(models.Model):
+    COLOR_CHOICES = [
+        ("#0B2545", "Azul Profundo"),
+        ("#e91e63", "Rosa Claro"),
+        ("#3f51b5", "Azul Médio"),
+        ("#fdd835", "Amarelo Claro"),
+        ("#ffb74d", "Laranja Suave"),
+        ("#ef5350", "Vermelho Suave"),
+        ("#ba68c8", "Roxo Claro"),
+        ("#4db6ac", "Verde Água"),
+        ("#c62828", "Vermelho Pizzaria"),
+        ("#2E4D38", "Verde Musgo Escuro"),
+        ("#3A0B52", "Roxo Beringela"),
+        ("#2e2e2e", "Grafite Escuro"),
+        ("#7B1E1E", "Vermelho Vinho"),
+        ("#8B4513", "Marrom Queimado"),
+        ("#665c1e", "Mostarda Escura"),
+    ]
+
     user = models.OneToOneField(User, on_delete=models.CASCADE, unique=True, null=True)
     store = models.CharField(max_length=100, unique=True)
     cnpj = models.CharField(max_length=18, unique=True, null=True)
@@ -40,6 +59,7 @@ class Store(models.Model):
     email = models.EmailField(blank=True)
 
     slug = models.SlugField(unique=True, blank=True)
+    primary_color = ColorField(max_length=7, choices=COLOR_CHOICES, default="#0B2545")
 
     def __str__(self):
         return self.store
