@@ -5,6 +5,7 @@
       <h2>Seja bem-vindo!</h2>
       <p>Não possui cadastro?<a href="{% url 'store:register' %}">Cadastre-se<i class="bi bi-arrow-up-right-square"></i></a></p>
     </div>
+    <div>
       {% if form.errors %}
         <p class="error">Usuário ou senha inválidos.</p>
       {% endif %}
@@ -22,6 +23,7 @@
         <button type="submit">Entrar</button>
         <input type="hidden" name="next" value="{{ next }}">
       </form>
+    </div>
   </div>
 </div>
 {% endblock %}
