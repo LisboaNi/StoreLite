@@ -26,7 +26,7 @@ env/
 
 # Media/uploads
 # media/
-uploads/
+# uploads/
 
 # Logs
 *.log
