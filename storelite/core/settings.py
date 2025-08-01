@@ -7,7 +7,7 @@ SECRET_KEY = "django-insecure-!s-iql*z(k%l%tm(n$#)a%fs73^gsh+3bmkw4sc7gdntj)jfdo
 
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["storelite.onrender.com"]
 
 INSTALLED_APPS = [
     "store",
