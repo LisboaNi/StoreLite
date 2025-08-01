@@ -14,6 +14,8 @@ INSTALLED_APPS = [
     "product",
     "public",
     "jazzmin", 
+    'cloudinary',
+    'cloudinary_storage',
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -22,6 +24,8 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     'colorfield',
 ]
+
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 JAZZMIN_SETTINGS = {
     "site_title": "StoreLite Admin",
@@ -109,9 +113,18 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
 
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+# MEDIA_URL = '/media/'
+# MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+
+import cloudinary
+import cloudinary_storage
+
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': os.environ.get('Root'),
+    'API_KEY': os.environ.get('661159524153333'),
+    'API_SECRET': os.environ.get('kvVsi_6CYa6wlnSQoWXYIO33pho'),
+}
