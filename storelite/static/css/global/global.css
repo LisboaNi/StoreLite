@@ -44,6 +44,11 @@ img {
     border-radius: 5px;
 }
 
+h1 {
+    color: var(--cor-store);
+    margin-bottom: 40px;
+}
+
 .container {
     max-width: 1220px;
     padding: 80px 40px;

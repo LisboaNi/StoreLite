@@ -1,18 +1,24 @@
 {% extends "base.html" %} {% block content %}
 
-<form method="post">
-  {% csrf_token %}
+<section class="profile container">
 
-  <label>Nome de usuário:</label>
-  <input type="text" value="{{ user.username }}" disabled /><br />
+  
+  <form method="post" class="font-5">
 
-  <label>Email:</label>
-  <input type="email" name="email" value="{{ user.email }}" /><br />
+    <div>
+      <h1 class="font-4">Perfil</h1>
+      <p>| Nome: <input type="text" value="{{ user.username }}" disabled/></p>
+    </div>
 
-  <label>Telefone:</label>
-  {{ form.telephone }}<br />
+    {% csrf_token %}
 
-  <button type="submit">Salvar</button>
-</form>
+    <label>Email:<input type="email" name="email" value="{{ user.email }}"/></label>
+
+    <label>Telefone: {{ form.telephone }}</label>
+
+    <button type="submit">Salvar</button>
+    
+  </form>
+</section>
 
 {% endblock %}

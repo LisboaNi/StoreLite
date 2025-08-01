@@ -10,5 +10,11 @@
 @import "./utils/tipografia.css";
 
 /* THEME */
-@import "./theme/main.css";
+@import "./theme/texts.css";
+@import "./theme/public.css";
+@import "./theme/filter.css";
 @import "./theme/product.css";
+@import "./theme/login.css";
+@import "./theme/user.css";
+@import "./theme/profile.css";
+@import "./theme/cart.css";

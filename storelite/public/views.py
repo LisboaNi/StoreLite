@@ -86,7 +86,6 @@ class UserView(CreateView):
     model = User
     form_class = FormUser
     template_name = "public/user.html"
-    success_url = reverse_lazy("login")
 
     def dispatch(self, request, *args, **kwargs):
         self.store = get_object_or_404(Store, slug=self.kwargs["store_name"])
@@ -94,21 +93,18 @@ class UserView(CreateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        store = get_object_or_404(Store, slug=self.kwargs["store_name"])
-        context["store"] = store
+        context["store"] = self.store
         return context
 
     def form_valid(self, form):
         user = form.save(commit=False)
-
         user.is_staff = False
         user.is_superuser = False
         user.save()
 
         UserProfile.objects.create(user=user, email=user.email, store=self.store)
 
-        return super().form_valid(form)
-
+        return redirect("public:client_login", store_name=self.store.slug)
 
 class ClientLoginView(LoginView):
     template_name = "public/login.html"

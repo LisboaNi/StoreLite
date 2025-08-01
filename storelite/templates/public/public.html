@@ -10,9 +10,9 @@
   </div>
 </section> 
 
-<section class="product-bg" id="home">
+<section class="public-bg">
 
-  <div class="product-home container">
+  <div class="public container">
     <h1 class="font-4">Produtos</h1>
     <ul>
       {% for product in products|slice:":3" %}
@@ -31,7 +31,7 @@
 
 <article>
 
-  <div class="intro container">
+  <div class="draft container">
     <img src="{{ store.draft.url }}" alt="Imagem de destaque" />
     <p class="font-3">{{ store.text }}</p>
   </div>

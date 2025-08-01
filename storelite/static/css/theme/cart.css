@@ -1,0 +1,37 @@
+.cart li {
+    background: var(--cor-nav);
+}
+
+.cart h2 {
+    margin-bottom: 20px;
+}
+
+.cart button {
+    color: var(--cor-detail-txt);
+    background: var(--cor-detail);
+
+    font-size: 1.125em;
+    justify-self: end;
+
+    padding: 10px 40px;
+    border-radius: 5px;
+    margin-top: 20px;
+    transition: .3s;
+}
+
+.cart button:first-child {
+    justify-self: start;
+}
+
+.cart button:hover {
+    background: var(--cor-detail-hover);
+}
+
+.cart .mensage {
+  margin-top: 20px;
+  padding: 20px;
+  border-radius: 5px;
+  background-color: #d1f7dc; 
+  color: #276738; 
+  border: 1px solid #a6e6b9; 
+}
