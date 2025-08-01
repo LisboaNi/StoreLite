@@ -117,14 +117,3 @@ STATICFILES_DIRS = [
 # MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
-
-import cloudinary
-import cloudinary_storage
-
-CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': os.environ.get('Root'),
-    'API_KEY': os.environ.get('661159524153333'),
-    'API_SECRET': os.environ.get('kvVsi_6CYa6wlnSQoWXYIO33pho'),
-}
