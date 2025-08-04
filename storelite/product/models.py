@@ -8,6 +8,7 @@ from django.dispatch import receiver
 
 from uuid import uuid4
 from django.utils.deconstruct import deconstructible
+from django.core.files.storage import default_storage
 
 
 @deconstructible
@@ -42,14 +43,12 @@ class Product(models.Model):
 
 @receiver(post_delete, sender=Product)
 def delete_product_images(sender, instance, **kwargs):
-    image_fields = [
-        "photo",
-    ]
+    image_fields = ["photo"]
 
     for field_name in image_fields:
         image = getattr(instance, field_name)
-        if image and os.path.isfile(image.path):
-            os.remove(image.path)
+        if image:
+            default_storage.delete(image.name)
 
 
 class CartItem(models.Model):

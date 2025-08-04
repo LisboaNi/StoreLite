@@ -10,6 +10,8 @@ from django.utils.deconstruct import deconstructible
 
 from django.utils.text import slugify
 from django.urls import reverse
+from django.core.files.storage import default_storage
+
 
 from colorfield.fields import ColorField
 
@@ -26,7 +28,7 @@ class PathRename:
 
 class Store(models.Model):
     COLOR_CHOICES = [
-        ("#0B2545", "Azul Profundo"),
+        ("#0b2545", "Azul Profundo"),
         ("#e91e63", "Rosa Claro"),
         ("#3f51b5", "Azul Médio"),
         ("#fdd835", "Amarelo Claro"),
@@ -62,7 +64,7 @@ class Store(models.Model):
     primary_color = ColorField(
         max_length=7,
         choices=COLOR_CHOICES,
-        default="#0B2545",
+        default="#0b2545",
         verbose_name="Cor Primária"
     )
 
@@ -95,8 +97,8 @@ def delete_store_images(sender, instance, **kwargs):
 
     for field_name in image_fields:
         image = getattr(instance, field_name)
-        if image and os.path.isfile(image.path):
-            os.remove(image.path)
+        if image:
+            default_storage.delete(image.name)
 
 
 class UserProfile(models.Model):
