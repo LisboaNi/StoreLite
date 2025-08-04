@@ -14,10 +14,12 @@ from django.core.files.storage import default_storage
 
 from colorfield.fields import ColorField
 
-def upload_product_image(instance, filename):
-    ext = filename.split('.')[-1]
-    filename = f"{uuid4().hex}.{ext}"
-    return f"product/{filename}"
+def path_with_prefix(prefix):
+    def wrapper(instance, filename):
+        ext = filename.split('.')[-1]
+        filename = f"{uuid4().hex}.{ext}"
+        return f"{prefix}{filename}"
+    return wrapper
 
 class Store(models.Model):
     COLOR_CHOICES = [
@@ -43,10 +45,10 @@ class Store(models.Model):
     cnpj = models.CharField(max_length=18, unique=True, null=True, verbose_name="CNPJ")
 
     layout = models.CharField(max_length=50, default="standard", verbose_name="Layout")
-    logo = models.ImageField(upload_to=upload_product_image("logo/"), blank=True, null=True, verbose_name="Logo")
-    page = models.ImageField(upload_to=upload_product_image("page/"), blank=True, null=True, verbose_name="Imagem da Principal")
+    logo = models.ImageField(upload_to=path_with_prefix("logo/"), blank=True, null=True, verbose_name="Logo")
+    page = models.ImageField(upload_to=path_with_prefix("page/"), blank=True, null=True, verbose_name="Imagem da Principal")
     main = models.TextField(blank=True, verbose_name="Texto Principal")
-    draft = models.ImageField(upload_to=upload_product_image("draft/"), blank=True, null=True, verbose_name="Imagem de Destaque")
+    draft = models.ImageField(upload_to=path_with_prefix("draft/"), blank=True, null=True, verbose_name="Imagem de Destaque")
     text = models.TextField(blank=True, verbose_name="Descrição Adicional")
 
     telephone = models.CharField(max_length=20, blank=True, verbose_name="Telefone")
