@@ -6,21 +6,14 @@ import os
 from django.db.models.signals import post_delete
 from django.dispatch import receiver
 
-from uuid import uuid4
 from django.core.files.storage import default_storage
-
-def upload_product_image(instance, filename):
-    ext = filename.split('.')[-1]
-    filename = f"{uuid4().hex}.{ext}"
-    return f"product/{filename}"
-
 
 class Product(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, verbose_name = "Usuário")
     store = models.ForeignKey(Store, on_delete=models.CASCADE, related_name="products", verbose_name = "Nome da Loja")
     name = models.CharField(max_length=100, unique=True, verbose_name = "Nome do Produto")
     description = models.TextField(verbose_name = "Descrição")
-    photo = models.ImageField(upload_to=upload_product_image("product/"), verbose_name = "Foto")
+    photo = models.ImageField(upload_to="product/", verbose_name = "Foto")
     cost = models.DecimalField(max_digits=10, decimal_places=2, verbose_name = "Valor")
     stock = models.PositiveIntegerField(verbose_name = "Quantidade no Estoque")
     number = models.CharField(max_length=20, blank=True, null=True, verbose_name = "Número")
