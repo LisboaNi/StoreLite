@@ -1,15 +1,19 @@
 from django.db import models
 from django.contrib.auth.models import User
 
-from django.db.models.signals import post_delete
-from django.dispatch import receiver
 
 from django.utils.text import slugify
 from django.urls import reverse
-from django.core.files.storage import default_storage
-
 
 from colorfield.fields import ColorField
+
+from uuid import uuid4
+import os
+
+def user_directory_path(instance, filename):
+    ext = filename.split(".")[-1]
+    filename = f"{uuid4()}.{ext}"
+    return os.path.join('store_images', filename)
 
 
 class Store(models.Model):
@@ -36,10 +40,10 @@ class Store(models.Model):
     cnpj = models.CharField(max_length=18, unique=True, null=True, verbose_name="CNPJ")
 
     layout = models.CharField(max_length=50, default="standard", verbose_name="Layout")
-    logo = models.ImageField(upload_to="logo/", blank=True, null=True, verbose_name="Logo")
-    page = models.ImageField(upload_to="page/", blank=True, null=True, verbose_name="Imagem da Principal")
+    logo = models.ImageField(upload_to=user_directory_path, blank=True, null=True, verbose_name="Logo")
+    page = models.ImageField(upload_to=user_directory_path, blank=True, null=True, verbose_name="Imagem da Principal")
     main = models.TextField(blank=True, verbose_name="Texto Principal")
-    draft = models.ImageField(upload_to="draft/", blank=True, null=True, verbose_name="Imagem de Destaque")
+    draft = models.ImageField(upload_to=user_directory_path, blank=True, null=True, verbose_name="Imagem de Destaque")
     text = models.TextField(blank=True, verbose_name="Descrição Adicional")
 
     telephone = models.CharField(max_length=20, blank=True, verbose_name="Telefone")
@@ -71,20 +75,6 @@ class Store(models.Model):
         if self.slug:
             return reverse("public:store_front", args=[self.slug])
         return "#"
-
-
-@receiver(post_delete, sender=Store)
-def delete_store_images(sender, instance, **kwargs):
-    image_fields = [
-        "logo",
-        "page",
-        "draft",
-    ]
-
-    for field_name in image_fields:
-        image = getattr(instance, field_name)
-        if image:
-            default_storage.delete(image.name)
 
 
 class UserProfile(models.Model):

@@ -41,7 +41,6 @@ class StoreAdmin(admin.ModelAdmin):
     def save_model(self, request, obj, form, change):
         if not obj.pk:
             obj.user = request.user
-        print("💥[STORELITE ADMIN DEBUG]📸 LOGO =>", form.cleaned_data.get('logo'))
         super().save_model(request, obj, form, change)
 
     def has_add_permission(self, request):
