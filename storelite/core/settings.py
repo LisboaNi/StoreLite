@@ -6,7 +6,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 DEBUG = os.environ.get('DJANGO_DEBUG', 'False') == 'True'
 SECRET_KEY = os.environ.get("django-insecure-!s-iql*z(k%l%tm(n$#)a%fs73^gsh+3bmkw4sc7gdntj)jfdo")
-ALLOWED_HOSTS = "https://storelite.onrender.com/"
+ALLOWED_HOSTS = ["storelite.onrender.com", "localhost", "127.0.0.1"]
 
 INSTALLED_APPS = [
     "store",
